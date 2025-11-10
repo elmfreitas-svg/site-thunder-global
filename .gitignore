@@ -1,2 +1,15 @@
-# Local Netlify folder
-.netlify
+# Pastas do Node
+node_modules/
+npm-debug.log
+
+# Pastas de build locais do Netlify
+.netlify/
+dist/
+
+# Arquivos de configuração local / sensíveis
+.env
+.env.*.local
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
