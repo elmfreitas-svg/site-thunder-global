@@ -1,5 +1,9 @@
+// ================================
+// 🔥 THUNDER GLOBAL — SendToRH
+// ================================
+
 import nodemailer from "nodemailer";
-import multipart from "parse-multipart";
+import Busboy from "busboy";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -7,119 +11,91 @@ dotenv.config();
 export const handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
 
-  try {
-    // ✅ Garantir que é POST
-    if (event.httpMethod !== "POST") {
-      return { statusCode: 405, body: "Method Not Allowed" };
-    }
-
-    // ✅ Detectar Content-Type corretamente (local e produção)
-    const contentType =
-      event.headers["content-type"] || event.headers["Content-Type"];
-
-    if (!contentType) {
-      console.error("❌ Nenhum Content-Type encontrado.");
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Content-Type ausente na requisição." }),
-      };
-    }
-
-    // ✅ Extrair boundary de forma segura
-    const boundaryMatch = contentType.match(/boundary=(.*)$/);
-    if (!boundaryMatch) {
-      console.error("❌ Nenhum boundary encontrado no Content-Type:", contentType);
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Boundary ausente no Content-Type." }),
-      };
-    }
-
-    const boundary = boundaryMatch[1].trim();
-    console.log("🧩 Boundary detectado:", boundary);
-
-    // ✅ Converter body base64 para buffer
-    const bodyBuffer = Buffer.from(event.body, "base64");
-
-    // ✅ Fazer o parse do multipart (tratamento protegido)
-    let parts;
-    try {
-      parts = multipart.Parse(bodyBuffer, boundary);
-    } catch (err) {
-      console.error("❌ Falha ao fazer parse do multipart:", err);
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Falha ao processar formulário multipart." }),
-      };
-    }
-
-    // ✅ Extrair campos de texto e arquivo
-    const fields = {};
-    let filePart = null;
-
-    parts.forEach((part) => {
-      if (part.filename) {
-        filePart = part;
-      } else {
-        fields[part.name] = part.data.toString();
-      }
-    });
-
-    console.log("📄 Campos recebidos:", fields);
-
-    // ✅ Configuração do transporte de e-mail
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: process.env.SMTP_SECURE === "true" || false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    // ✅ Corpo do e-mail (HTML)
-    const htmlBody = `
-      <h2>📩 Nova candidatura recebida</h2>
-      <p><strong>Nome:</strong> ${fields.nome || "(não informado)"}</p>
-      <p><strong>E-mail:</strong> ${fields.email || "(não informado)"}</p>
-      <p><strong>Telefone:</strong> ${fields.telefone || "(não informado)"}</p>
-      <p><strong>Cargo pretendido:</strong> ${fields.cargo || "(não informado)"}</p>
-      <p><strong>Mensagem:</strong><br>${fields.mensagem || "(vazio)"}</p>
-    `;
-
-    // ✅ Montar e-mail com anexo (se existir)
-    const mailOptions = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.SMTP_TO || "rh@thunderglobal.com",
-      subject: "🧾 Novo formulário — Trabalhe Conosco",
-      html: htmlBody,
-      attachments: [],
-    };
-
-    if (filePart) {
-      mailOptions.attachments.push({
-        filename: filePart.filename,
-        content: filePart.data,
-      });
-      console.log(`📎 Currículo anexado: ${filePart.filename}`);
-    } else {
-      console.log("⚠️ Nenhum currículo anexado.");
-    }
-
-    // ✅ Enviar e-mail
-    await transporter.sendMail(mailOptions);
-    console.log("✅ E-mail enviado com sucesso!");
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "E-mail enviado com sucesso!" }),
-    };
-  } catch (error) {
-    console.error("❌ Erro ao enviar e-mail:", error);
-    return {
-      statusCode: 500,
-      body: "Erro ao enviar e-mail: " + error.message,
-    };
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
   }
+
+  return new Promise((resolve) => {
+    try {
+      const headers = event.headers || {};
+      const contentType = headers["content-type"] || headers["Content-Type"];
+      if (!contentType) {
+        console.error("❌ Nenhum Content-Type encontrado.");
+        resolve({ statusCode: 400, body: "Content-Type ausente." });
+        return;
+      }
+
+      const busboy = new Busboy({ headers });
+
+      const fields = {};
+      let fileBuffer = null;
+      let fileName = "";
+
+      busboy.on("file", (fieldname, file, filename) => {
+        fileName = filename;
+        const chunks = [];
+        file.on("data", (data) => chunks.push(data));
+        file.on("end", () => {
+          fileBuffer = Buffer.concat(chunks);
+          console.log(`📎 Currículo recebido: ${filename} (${fileBuffer.length} bytes)`);
+        });
+      });
+
+      busboy.on("field", (fieldname, value) => {
+        fields[fieldname] = value;
+        console.log(`📄 Campo recebido: ${fieldname} = ${value}`);
+      });
+
+      busboy.on("finish", async () => {
+        try {
+          const transporter = nodemailer.createTransport({
+            host: process.env.ZOHO_HOST,
+            port: Number(process.env.ZOHO_PORT),
+            secure: process.env.ZOHO_SECURE === "true",
+            auth: {
+              user: process.env.ZOHO_USER,
+              pass: process.env.ZOHO_PASS,
+            },
+            tls: { rejectUnauthorized: false },
+          });
+
+          const mailOptions = {
+            from: `"${fields.nome || "Candidato"}" <${process.env.ZOHO_USER}>`,
+            replyTo: fields.email || process.env.ZOHO_USER,
+            to: process.env.RH_EMAIL,
+            subject: `💼 Novo candidato — ${fields.nome || "Sem nome"}`,
+            text: `
+📩 NOVO CURRÍCULO RECEBIDO
+
+👤 Nome: ${fields.nome || "—"}
+📧 E-mail: ${fields.email || "—"}
+🏢 Empresa: ${fields.empresa || "—"}
+🎯 Cargo: ${fields.cargo || "—"}
+📝 Mensagem: ${fields.mensagem || "—"}
+            `,
+            attachments: fileBuffer
+              ? [{ filename: fileName || "curriculo.pdf", content: fileBuffer }]
+              : [],
+          };
+
+          await transporter.sendMail(mailOptions);
+          console.log("✅ E-mail enviado com sucesso!");
+
+          resolve({
+            statusCode: 200,
+            body: JSON.stringify({ message: "E-mail enviado com sucesso!" }),
+          });
+        } catch (err) {
+          console.error("❌ Erro ao enviar e-mail:", err);
+          resolve({ statusCode: 500, body: "Erro ao enviar e-mail: " + err.message });
+        }
+      });
+
+      const buf = Buffer.from(event.body, "base64");
+      busboy.end(buf);
+    } catch (err) {
+      console.error("❌ Falha ao processar formulário multipart.", err);
+      resolve({ statusCode: 500, body: JSON.stringify({ error: "Falha ao processar formulário multipart." }) });
+    }
+  });
 };

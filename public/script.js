@@ -1,6 +1,6 @@
 // ================================
 // 🔥 THUNDER GLOBAL CORPORATION
-// script.js — versão segura e otimizada
+// script.js — versão segura e otimizada (envios multipart)
 // ================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,34 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
     /** ==========================
      *  MODAL — TRABALHE CONOSCO
      * ========================== **/
-    document.addEventListener('DOMContentLoaded', () => {
-        const openTrabalheHeader = document.getElementById('openTrabalheHeader');
-        const modalTrabalhe = document.getElementById('trabalheModal');
-        const tcFecharTop = document.getElementById('tcFecharTop');
+    const openTrabalheHeader = document.getElementById('openTrabalheHeader');
+    const modalTrabalhe = document.getElementById('trabalheModal');
+    const tcFecharTop = document.getElementById('tcFecharTop');
 
-        if (openTrabalheHeader && modalTrabalhe) {
-            openTrabalheHeader.addEventListener('click', () => {
-                modalTrabalhe.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-        }
+    if (openTrabalheHeader && modalTrabalhe) {
+        openTrabalheHeader.addEventListener('click', () => {
+            modalTrabalhe.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+    }
 
-        if (tcFecharTop) {
-            tcFecharTop.addEventListener('click', () => {
+    if (tcFecharTop) {
+        tcFecharTop.addEventListener('click', () => {
+            modalTrabalhe.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (modalTrabalhe) {
+        modalTrabalhe.addEventListener('click', (e) => {
+            if (e.target === modalTrabalhe || e.target.classList.contains('bg-opacity-80')) {
                 modalTrabalhe.classList.add('hidden');
                 document.body.style.overflow = '';
-            });
-        }
-
-        if (modalTrabalhe) {
-            modalTrabalhe.addEventListener('click', (e) => {
-                if (e.target === modalTrabalhe || e.target.classList.contains('bg-opacity-80')) {
-                    modalTrabalhe.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            });
-        }
-    });
+            }
+        });
+    }
 
     /** ==========================
      *  MODAL — AGENDAR REUNIÃO
@@ -71,51 +69,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
   /** ==========================
- *  ENVIO DE AGENDAMENTO — SERVIDOR
- * ========================== **/
+   *  ENVIO DE AGENDAMENTO — SERVIDOR (corrigido para multipart/form-data)
+   * ========================== **/
 const btnEmail = document.getElementById("btnEmail");
 
 if (btnEmail) {
   btnEmail.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const nome = document.getElementById("nome").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
-    const empresa = document.getElementById("empresa").value.trim();
-    const observacoes = document.getElementById("observacoes").value.trim();
-
-    if (!nome || !email) {
-      alert("⚠️ Preencha pelo menos o nome e o e-mail antes de enviar.");
-      return;
-    }
+    const form = document.getElementById("agendaForm"); // ID do formulário de agendamento
+    if (!form) return alert("Formulário não encontrado.");
 
     try {
+      const formData = new FormData(form); // captura todos os campos do formulário
       const response = await fetch("/.netlify/functions/sendEmail", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nome,
-          email,
-          telefone,
-          empresa,
-          observacoes,
-        }),
+        body: formData
       });
 
       if (response.ok) {
-        alert("✅ E-mail enviado com sucesso! Nossa equipe entrará em contato.");
+        alert("✅ Agendamento enviado com sucesso! Nossa equipe entrará em contato.");
+        form.reset();
+        modal?.classList.add('hidden');
       } else {
         const errorText = await response.text();
-        alert("❌ Erro ao enviar o e-mail: " + errorText);
+        alert("❌ Erro ao enviar o agendamento: " + errorText);
       }
     } catch (err) {
-      console.error("Erro ao enviar e-mail:", err);
+      console.error("Erro ao enviar agendamento:", err);
       alert("❌ Falha na conexão com o servidor.");
     }
   });
 }
-
 
     /** ==========================
      *  ENVIO DE AGENDAMENTO — WHATSAPP
@@ -154,13 +139,7 @@ if (btnEmail) {
             e.preventDefault();
 
             try {
-                const formData = new FormData(form);
-                const fileInput = document.getElementById("tc_curriculo");
-
-                if (fileInput && fileInput.files.length > 0) {
-                    formData.append("curriculo", fileInput.files[0]);
-                }
-
+                const formData = new FormData(form); // captura campos + arquivo
                 const response = await fetch("/.netlify/functions/sendToRH", {
                     method: "POST",
                     body: formData

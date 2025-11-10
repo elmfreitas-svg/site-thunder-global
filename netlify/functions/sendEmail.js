@@ -1,6 +1,16 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import { IncomingForm } from "formidable";
+import fs from "fs";
+
 dotenv.config();
+
+// Desativa o parsing padrão do Netlify para permitir multipart
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export const handler = async (event) => {
   try {
@@ -9,21 +19,23 @@ export const handler = async (event) => {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // ✅ 2. Garante que o corpo da requisição é um JSON válido
-    let data;
-    try {
-      data = JSON.parse(event.body);
-    } catch {
-      return { statusCode: 400, body: "Corpo inválido ou ausente." };
-    }
+    // ✅ 2. Processa formulário multipart
+    const data = await new Promise((resolve, reject) => {
+      const form = new IncomingForm({ multiples: true });
+      form.parse(event, (err, fields, files) => {
+        if (err) reject(err);
+        else resolve({ fields, files });
+      });
+    });
 
-    // ✅ 3. Extrai os campos e valida obrigatórios
-    const { nome, email, telefone, empresa, observacoes } = data;
+    const { fields, files } = data;
+    const { nome, email, telefone, empresa, observacoes } = fields;
+
     if (!nome || !email) {
       return { statusCode: 400, body: "Campos obrigatórios faltando." };
     }
 
-    // ✅ 4. Configura o SMTP (Umbler)
+    // ✅ 3. Configura o SMTP (Umbler)
     const transporter = nodemailer.createTransport({
       host: process.env.UMBLER_HOST,
       port: Number(process.env.UMBLER_PORT),
@@ -35,7 +47,7 @@ export const handler = async (event) => {
       tls: { rejectUnauthorized: false },
     });
 
-    // ✅ 5. Monta o e-mail
+    // ✅ 4. Monta o e-mail
     const mailOptions = {
       from: `"${nome} via Agendamento Thunder Global" <${process.env.UMBLER_USER}>`,
       replyTo: email,
@@ -50,7 +62,17 @@ Nova solicitação de reunião executiva:
 🏢 Empresa: ${empresa}
 📝 Observações: ${observacoes}
       `,
+      attachments: [],
     };
+
+    // ✅ 5. Anexa arquivo, se houver
+    if (files.curriculo) {
+      const file = Array.isArray(files.curriculo) ? files.curriculo[0] : files.curriculo;
+      mailOptions.attachments.push({
+        filename: file.originalFilename,
+        content: fs.readFileSync(file.filepath),
+      });
+    }
 
     // ✅ 6. Envia o e-mail
     await transporter.sendMail(mailOptions);
