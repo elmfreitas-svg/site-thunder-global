@@ -8,6 +8,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Configuração Netlify para desativar o bodyParser padrão
+export const config = {
+  api: {
+    bodyParser: true, // Agora usamos JSON direto
+  },
+};
+
 export const handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
 
@@ -31,6 +38,7 @@ export const handler = async (event) => {
       let fileBuffer = null;
       let fileName = "";
 
+      // ✅ Captura do arquivo (currículo)
       busboy.on("file", (fieldname, file, filename) => {
         fileName = filename;
         const chunks = [];
@@ -41,11 +49,13 @@ export const handler = async (event) => {
         });
       });
 
+      // ✅ Captura dos campos do formulário
       busboy.on("field", (fieldname, value) => {
         fields[fieldname] = value;
         console.log(`📄 Campo recebido: ${fieldname} = ${value}`);
       });
 
+      // ✅ Ao finalizar o parsing do formulário
       busboy.on("finish", async () => {
         try {
           const transporter = nodemailer.createTransport({
@@ -91,11 +101,15 @@ export const handler = async (event) => {
         }
       });
 
+      // ✅ Processa o corpo codificado em base64 do Netlify
       const buf = Buffer.from(event.body, "base64");
       busboy.end(buf);
     } catch (err) {
       console.error("❌ Falha ao processar formulário multipart.", err);
-      resolve({ statusCode: 500, body: JSON.stringify({ error: "Falha ao processar formulário multipart." }) });
+      resolve({
+        statusCode: 500,
+        body: JSON.stringify({ error: "Falha ao processar formulário multipart." }),
+      });
     }
   });
 };

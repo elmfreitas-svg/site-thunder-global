@@ -1,12 +1,7 @@
 // ================================
 // 🔥 THUNDER GLOBAL CORPORATION
-// script.js — versão segura e otimizada (envios multipart)
+// script.js — versão segura e otimizada
 // ================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    const modalTrabalhe = document.getElementById('trabalheModal');
-    console.log(modalTrabalhe);
-});
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -68,48 +63,58 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
     }
 
-  /** ==========================
-   *  ENVIO DE AGENDAMENTO — SERVIDOR (corrigido para multipart/form-data)
-   * ========================== **/
-const btnEmail = document.getElementById("btnEmail");
+    /** ==========================
+     *  ENVIO DE AGENDAMENTO — NETLIFY FUNCTION
+     * ========================== **/
+    const btnEmail = document.getElementById('btnEmail');
+    if (btnEmail) {
+        btnEmail.addEventListener('click', async (e) => {
+            e.preventDefault();
 
-if (btnEmail) {
-  btnEmail.addEventListener("click", async (e) => {
-    e.preventDefault();
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const empresa = document.getElementById('empresa').value.trim();
+            const observacoes = document.getElementById('observacoes').value.trim();
 
-    const form = document.getElementById("agendaForm"); // ID do formulário de agendamento
-    if (!form) return alert("Formulário não encontrado.");
+            if (!nome || !email) {
+                return alert("⚠️ Preencha pelo menos nome e e-mail.");
+            }
 
-    try {
-      const formData = new FormData(form); // captura todos os campos do formulário
-      const response = await fetch("/.netlify/functions/sendEmail", {
-        method: "POST",
-        body: formData
-      });
+            try {
+                const response = await fetch("/.netlify/functions/sendEmail", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nome, email, telefone, empresa, observacoes })
+                });
 
-      if (response.ok) {
-        alert("✅ Agendamento enviado com sucesso! Nossa equipe entrará em contato.");
-        form.reset();
-        modal?.classList.add('hidden');
-      } else {
-        const errorText = await response.text();
-        alert("❌ Erro ao enviar o agendamento: " + errorText);
-      }
-    } catch (err) {
-      console.error("Erro ao enviar agendamento:", err);
-      alert("❌ Falha na conexão com o servidor.");
+                if (response.ok) {
+                    alert("✅ Agendamento enviado com sucesso! Nossa equipe entrará em contato.");
+                    document.getElementById('nome').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('telefone').value = '';
+                    document.getElementById('empresa').value = '';
+                    document.getElementById('observacoes').value = '';
+                    modal?.classList.add('hidden');
+                } else {
+                    const errorText = await response.text();
+                    alert("❌ Erro ao enviar o agendamento: " + errorText);
+                }
+            } catch (err) {
+                console.error("Erro ao enviar agendamento:", err);
+                alert("❌ Falha na conexão com o servidor.");
+            }
+        });
     }
-  });
-}
 
     /** ==========================
      *  ENVIO DE AGENDAMENTO — WHATSAPP
      * ========================== **/
     window.enviarWhatsApp = function() {
-        const nome = encodeURIComponent(document.getElementById('nome').value);
-        const telefone = encodeURIComponent(document.getElementById('telefone').value);
-        const empresa = encodeURIComponent(document.getElementById('empresa').value);
-        const obs = encodeURIComponent(document.getElementById('observacoes').value);
+        const nome = encodeURIComponent(document.getElementById('nome').value.trim());
+        const telefone = encodeURIComponent(document.getElementById('telefone').value.trim());
+        const empresa = encodeURIComponent(document.getElementById('empresa').value.trim());
+        const obs = encodeURIComponent(document.getElementById('observacoes').value.trim());
 
         const mensagem = encodeURIComponent(
             `Olá, gostaria de agendar uma reunião executiva.\n` +
@@ -131,33 +136,53 @@ if (btnEmail) {
     }
 
     /** ==========================
-     *  TRABALHE CONOSCO — Envio via Netlify Functions
-     * ========================== **/
-    const form = document.getElementById("trabalheForm");
-    if (form) {
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+ *  TRABALHE CONOSCO — NETLIFY FUNCTION
+ * ========================== **/
+const form = document.getElementById("trabalheForm");
 
-            try {
-                const formData = new FormData(form); // captura campos + arquivo
-                const response = await fetch("/.netlify/functions/sendToRH", {
-                    method: "POST",
-                    body: formData
-                });
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-                if (response.ok) {
-                    alert("✅ Formulário enviado com sucesso! Obrigado por se candidatar à Thunder Global.");
-                    form.reset();
-                } else {
-                    const respText = await response.text();
-                    alert("❌ Erro ao enviar o formulário: " + respText);
-                }
-            } catch (error) {
-                console.error("Erro de rede:", error);
-                alert("❌ Erro de conexão com o servidor.");
-            }
-        });
+    try {
+      const formData = new FormData(form);
+      const fileInput = document.getElementById("tc_curriculo");
+
+      if (fileInput && fileInput.files.length > 0) {
+        formData.append("curriculo", fileInput.files[0]);
+      }
+
+      const response = await fetch("/.netlify/functions/sendToRH", {
+        method: "POST",
+        body: formData,
+      });
+
+      // ✅ Tenta interpretar JSON de resposta do Netlify Function
+      const contentType = response.headers.get("content-type");
+      let respText;
+
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        respText = data.message || JSON.stringify(data);
+      } else {
+        respText = await response.text();
+      }
+
+      if (response.ok) {
+        alert("✅ Formulário enviado com sucesso!");
+        form.reset();
+      } else {
+        console.error("❌ Erro do servidor:", respText);
+        alert("❌ Erro ao enviar o formulário: " + respText);
+      }
+
+    } catch (error) {
+      console.error("❌ Erro de rede:", error);
+      alert("❌ Erro de conexão com o servidor. Verifique sua internet.");
     }
+  });
+}
+
 
     /** ==========================
      *  SMOOTH SCROLL
@@ -217,6 +242,9 @@ if (btnEmail) {
     }
 });
 
+/** ==========================
+ *  MODAL — TRABALHE CONOSCO INIT
+ * ========================== **/
 (function() {
   function initTrabalheConosco() {
     const openBtn = document.getElementById('openTrabalheHeader') || document.querySelector('[data-open-trabalhe="true"]');
