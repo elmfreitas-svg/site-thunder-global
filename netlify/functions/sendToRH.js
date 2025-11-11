@@ -32,15 +32,17 @@ export const handler = async (event) => {
       let fileBuffer = null;
       let fileName = "";
 
-      bb.on("file", (fieldname, file, filename) => {
-        fileName = filename;
+      bb.on("file", (fieldname, file, info) => {
+        const { filename } = info || {};
+        fileName = typeof filename === "string" ? filename : "curriculo.pdf";
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
         file.on("end", () => {
           fileBuffer = Buffer.concat(chunks);
-          console.log(`📎 Currículo recebido: ${filename} (${fileBuffer.length} bytes)`);
+          console.log(`📎 Currículo recebido: ${fileName} (${fileBuffer.length} bytes)`);
         });
       });
+
 
       bb.on("field", (fieldname, value) => {
         fields[fieldname] = value;
