@@ -1,45 +1,32 @@
 // ================================
-// 🔥 THUNDER GLOBAL — SendToRH
+// 🔥 THUNDER GLOBAL — SendToRH (Zoho)
 // ================================
+require("dotenv").config();
+const nodemailer = require("nodemailer");
+const Busboy = require("busboy");
 
-import nodemailer from "nodemailer";
-import Busboy from "busboy";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-// Configuração Netlify para desativar o bodyParser padrão
-export const config = {
-  api: {
-    bodyParser: true, // Agora usamos JSON direto
-  },
-};
-
-export const handler = async (event) => {
+exports.handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
 
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
+  const contentType = event.headers["content-type"] || event.headers["Content-Type"];
+  if (!contentType || !contentType.includes("multipart/form-data")) {
+    console.error("❌ Content-Type inválido ou ausente.");
+    return { statusCode: 400, body: "Tipo de conteúdo inválido." };
+  }
+
   return new Promise((resolve) => {
     try {
-      const headers = event.headers || {};
-      const contentType = headers["content-type"] || headers["Content-Type"];
-      if (!contentType) {
-        console.error("❌ Nenhum Content-Type encontrado.");
-        resolve({ statusCode: 400, body: "Content-Type ausente." });
-        return;
-      }
-
-      const busboy = new Busboy({ headers });
+      const busboy = new Busboy({ headers: { "content-type": contentType } });
 
       const fields = {};
       let fileBuffer = null;
       let fileName = "";
 
-      // ✅ Captura do arquivo (currículo)
-      busboy.on("file", (fieldname, file, filename) => {
+      busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
         fileName = filename;
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
@@ -49,13 +36,11 @@ export const handler = async (event) => {
         });
       });
 
-      // ✅ Captura dos campos do formulário
       busboy.on("field", (fieldname, value) => {
         fields[fieldname] = value;
         console.log(`📄 Campo recebido: ${fieldname} = ${value}`);
       });
 
-      // ✅ Ao finalizar o parsing do formulário
       busboy.on("finish", async () => {
         try {
           const transporter = nodemailer.createTransport({
@@ -79,7 +64,7 @@ export const handler = async (event) => {
 
 👤 Nome: ${fields.nome || "—"}
 📧 E-mail: ${fields.email || "—"}
-🏢 Empresa: ${fields.empresa || "—"}
+📱 Telefone: ${fields.telefone || "—"}
 🎯 Cargo: ${fields.cargo || "—"}
 📝 Mensagem: ${fields.mensagem || "—"}
             `,
@@ -101,11 +86,10 @@ export const handler = async (event) => {
         }
       });
 
-      // ✅ Processa o corpo codificado em base64 do Netlify
-      const buf = Buffer.from(event.body, "base64");
-      busboy.end(buf);
+      const buffer = Buffer.from(event.body, event.isBase64Encoded ? "base64" : "utf8");
+      busboy.end(buffer);
     } catch (err) {
-      console.error("❌ Falha ao processar formulário multipart.", err);
+      console.error("❌ Falha ao processar formulário multipart:", err);
       resolve({
         statusCode: 500,
         body: JSON.stringify({ error: "Falha ao processar formulário multipart." }),

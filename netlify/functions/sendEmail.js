@@ -1,41 +1,37 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { IncomingForm } from "formidable";
-import fs from "fs";
 
 dotenv.config();
 
-// Desativa o parsing padrão do Netlify para permitir multipart
+// Configuração Netlify para desativar o bodyParser padrão
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: true, // Agora usamos JSON direto
   },
 };
 
 export const handler = async (event) => {
   try {
-    // ✅ 1. Bloqueia qualquer método que não seja POST
+    // ✅ 1. Bloqueia métodos que não sejam POST
     if (event.httpMethod !== "POST") {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // ✅ 2. Processa formulário multipart
-    const data = await new Promise((resolve, reject) => {
-      const form = new IncomingForm({ multiples: true });
-      form.parse(event, (err, fields, files) => {
-        if (err) reject(err);
-        else resolve({ fields, files });
-      });
-    });
+    // ✅ 2. Processa JSON do script.js
+    let data;
+    try {
+      data = JSON.parse(event.body);
+    } catch {
+      return { statusCode: 400, body: "Corpo inválido ou ausente." };
+    }
 
-    const { fields, files } = data;
-    const { nome, email, telefone, empresa, observacoes } = fields;
+    const { nome, email, telefone, empresa, observacoes } = data;
 
     if (!nome || !email) {
       return { statusCode: 400, body: "Campos obrigatórios faltando." };
     }
 
-    // ✅ 3. Configura o SMTP (Umbler)
+    // ✅ 3. Configura SMTP (Umbler)
     const transporter = nodemailer.createTransport({
       host: process.env.UMBLER_HOST,
       port: Number(process.env.UMBLER_PORT),
@@ -51,31 +47,22 @@ export const handler = async (event) => {
     const mailOptions = {
       from: `"${nome} via Agendamento Thunder Global" <${process.env.UMBLER_USER}>`,
       replyTo: email,
-      to: process.env.UMBLER_USER,
+      to: "contato@thunderglobalcorp.com", // envio direto
       subject: `📅 Agendamento de reunião — ${nome || "Novo contato"}`,
       text: `
 Nova solicitação de reunião executiva:
 
 👤 Nome: ${nome}
 📧 E-mail: ${email}
-📞 Telefone: ${telefone}
-🏢 Empresa: ${empresa}
-📝 Observações: ${observacoes}
+📞 Telefone: ${telefone || "Não informado"}
+🏢 Empresa: ${empresa || "Não informada"}
+📝 Observações: ${observacoes || "Sem observações"}
       `,
-      attachments: [],
     };
 
-    // ✅ 5. Anexa arquivo, se houver
-    if (files.curriculo) {
-      const file = Array.isArray(files.curriculo) ? files.curriculo[0] : files.curriculo;
-      mailOptions.attachments.push({
-        filename: file.originalFilename,
-        content: fs.readFileSync(file.filepath),
-      });
-    }
-
-    // ✅ 6. Envia o e-mail
+    // ✅ 5. Envia o e-mail
     await transporter.sendMail(mailOptions);
+
     return { statusCode: 200, body: "✅ E-mail enviado com sucesso!" };
 
   } catch (err) {
