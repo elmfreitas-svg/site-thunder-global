@@ -1,32 +1,38 @@
 // ================================
-// 🔥 THUNDER GLOBAL — SendToRH (Zoho)
+// 🔥 THUNDER GLOBAL — SendToRH
 // ================================
-require("dotenv").config();
-const nodemailer = require("nodemailer");
-const Busboy = require("busboy");
 
-exports.handler = async (event) => {
+import busboy from "busboy";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
 
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const contentType = event.headers["content-type"] || event.headers["Content-Type"];
-  if (!contentType || !contentType.includes("multipart/form-data")) {
-    console.error("❌ Content-Type inválido ou ausente.");
-    return { statusCode: 400, body: "Tipo de conteúdo inválido." };
-  }
-
   return new Promise((resolve) => {
     try {
-      const busboy = new Busboy({ headers: { "content-type": contentType } });
+      const headers = event.headers || {};
+      const contentType = headers["content-type"] || headers["Content-Type"];
+      if (!contentType) {
+        console.error("❌ Nenhum Content-Type encontrado.");
+        resolve({ statusCode: 400, body: "Content-Type ausente." });
+        return;
+      }
+
+      // ✅ Instância correta do Busboy (compatível com Netlify)
+      const bb = busboy({ headers });
 
       const fields = {};
       let fileBuffer = null;
       let fileName = "";
 
-      busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+      bb.on("file", (fieldname, file, filename) => {
         fileName = filename;
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
@@ -36,12 +42,12 @@ exports.handler = async (event) => {
         });
       });
 
-      busboy.on("field", (fieldname, value) => {
+      bb.on("field", (fieldname, value) => {
         fields[fieldname] = value;
         console.log(`📄 Campo recebido: ${fieldname} = ${value}`);
       });
 
-      busboy.on("finish", async () => {
+      bb.on("finish", async () => {
         try {
           const transporter = nodemailer.createTransport({
             host: process.env.ZOHO_HOST,
@@ -64,7 +70,7 @@ exports.handler = async (event) => {
 
 👤 Nome: ${fields.nome || "—"}
 📧 E-mail: ${fields.email || "—"}
-📱 Telefone: ${fields.telefone || "—"}
+🏢 Empresa: ${fields.empresa || "—"}
 🎯 Cargo: ${fields.cargo || "—"}
 📝 Mensagem: ${fields.mensagem || "—"}
             `,
@@ -86,8 +92,8 @@ exports.handler = async (event) => {
         }
       });
 
-      const buffer = Buffer.from(event.body, event.isBase64Encoded ? "base64" : "utf8");
-      busboy.end(buffer);
+      const buf = Buffer.from(event.body, "base64");
+      bb.end(buf);
     } catch (err) {
       console.error("❌ Falha ao processar formulário multipart:", err);
       resolve({
