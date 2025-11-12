@@ -1,23 +1,25 @@
+// netlify/functions/sendEmail.js
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
+// ✅ Carrega variáveis locais (.env) apenas em ambiente de desenvolvimento
 dotenv.config();
 
-// Configuração Netlify para desativar o bodyParser padrão
+// ✅ Configuração do Netlify Function
 export const config = {
   api: {
-    bodyParser: true, // Agora usamos JSON direto
+    bodyParser: false, // O Netlify já entrega o corpo como string
   },
 };
 
 export const handler = async (event) => {
   try {
-    // ✅ 1. Bloqueia métodos que não sejam POST
+    // ✅ 1. Permite apenas método POST
     if (event.httpMethod !== "POST") {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    // ✅ 2. Processa JSON do script.js
+    // ✅ 2. Lê e valida os dados JSON do corpo
     let data;
     try {
       data = JSON.parse(event.body);
@@ -31,7 +33,7 @@ export const handler = async (event) => {
       return { statusCode: 400, body: "Campos obrigatórios faltando." };
     }
 
-    // ✅ 3. Configura SMTP (Umbler)
+    // ✅ 3. Configuração do SMTP (Umbler)
     const transporter = nodemailer.createTransport({
       host: process.env.UMBLER_HOST,
       port: Number(process.env.UMBLER_PORT),
@@ -40,15 +42,17 @@ export const handler = async (event) => {
         user: process.env.UMBLER_USER,
         pass: process.env.UMBLER_PASS,
       },
-      tls: { rejectUnauthorized: false },
+      tls: {
+        rejectUnauthorized: false, // Necessário em alguns ambientes do Netlify
+      },
     });
 
     // ✅ 4. Monta o e-mail
     const mailOptions = {
-      from: `"${nome} via Agendamento Thunder Global" <${process.env.UMBLER_USER}>`,
+      from: `"${nome} via Thunder Global" <${process.env.UMBLER_USER}>`,
       replyTo: email,
-      to: "contato@thunderglobalcorp.com", // envio direto
-      subject: `📅 Agendamento de reunião — ${nome || "Novo contato"}`,
+      to: "contato@thunderglobalcorp.com",
+      subject: `📅 Agendamento de reunião — ${nome}`,
       text: `
 Nova solicitação de reunião executiva:
 
@@ -63,10 +67,18 @@ Nova solicitação de reunião executiva:
     // ✅ 5. Envia o e-mail
     await transporter.sendMail(mailOptions);
 
-    return { statusCode: 200, body: "✅ E-mail enviado com sucesso!" };
-
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "✅ E-mail enviado com sucesso!" }),
+    };
   } catch (err) {
     console.error("❌ Erro ao enviar e-mail:", err);
-    return { statusCode: 500, body: `Erro ao enviar e-mail: ${err.message}` };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Erro ao enviar e-mail.",
+        details: err.message,
+      }),
+    };
   }
 };

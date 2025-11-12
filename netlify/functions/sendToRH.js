@@ -1,20 +1,23 @@
 // ================================
-// 🔥 THUNDER GLOBAL — SendToRH
+// ⚡ THUNDER GLOBAL — SendToRH (Netlify Function)
 // ================================
 
 import busboy from "busboy";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
+// ✅ Carrega variáveis locais apenas fora do ambiente Netlify
 dotenv.config();
 
 export const handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
 
+  // ✅ 1. Apenas POST é permitido
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
+  // ✅ 2. Retorna uma Promise para processar multipart/form-data
   return new Promise((resolve) => {
     try {
       const headers = event.headers || {};
@@ -25,17 +28,19 @@ export const handler = async (event) => {
         return;
       }
 
-      // ✅ Instância correta do Busboy (compatível com Netlify)
+      // ✅ Instância correta do Busboy (modo compatível com Netlify)
       const bb = busboy({ headers });
 
       const fields = {};
       let fileBuffer = null;
       let fileName = "";
 
+      // 📎 Captura o arquivo do currículo
       bb.on("file", (fieldname, file, info) => {
         const { filename } = info || {};
         fileName = typeof filename === "string" ? filename : "curriculo.pdf";
         const chunks = [];
+
         file.on("data", (data) => chunks.push(data));
         file.on("end", () => {
           fileBuffer = Buffer.concat(chunks);
@@ -43,14 +48,16 @@ export const handler = async (event) => {
         });
       });
 
-
+      // 📄 Captura os campos de texto do formulário
       bb.on("field", (fieldname, value) => {
         fields[fieldname] = value;
         console.log(`📄 Campo recebido: ${fieldname} = ${value}`);
       });
 
+      // ✅ Quando tudo for processado:
       bb.on("finish", async () => {
         try {
+          // 3️⃣ Configura o transporte SMTP (Zoho)
           const transporter = nodemailer.createTransport({
             host: process.env.ZOHO_HOST,
             port: Number(process.env.ZOHO_PORT),
@@ -62,8 +69,9 @@ export const handler = async (event) => {
             tls: { rejectUnauthorized: false },
           });
 
+          // 4️⃣ Monta o e-mail a ser enviado
           const mailOptions = {
-            from: `"${fields.nome || "Candidato"}" <${process.env.ZOHO_USER}>`,
+            from: `"${fields.nome || "Candidato"} via Trabalhe Conosco" <${process.env.ZOHO_USER}>`,
             replyTo: fields.email || process.env.ZOHO_USER,
             to: process.env.RH_EMAIL,
             subject: `💼 Novo candidato — ${fields.nome || "Sem nome"}`,
@@ -81,19 +89,24 @@ export const handler = async (event) => {
               : [],
           };
 
+          // 5️⃣ Envia o e-mail
           await transporter.sendMail(mailOptions);
-          console.log("✅ E-mail enviado com sucesso!");
+          console.log("✅ E-mail enviado com sucesso ao RH!");
 
           resolve({
             statusCode: 200,
-            body: JSON.stringify({ message: "E-mail enviado com sucesso!" }),
+            body: JSON.stringify({ message: "✅ E-mail enviado com sucesso ao RH!" }),
           });
         } catch (err) {
           console.error("❌ Erro ao enviar e-mail:", err);
-          resolve({ statusCode: 500, body: "Erro ao enviar e-mail: " + err.message });
+          resolve({
+            statusCode: 500,
+            body: JSON.stringify({ error: "Erro ao enviar e-mail.", details: err.message }),
+          });
         }
       });
 
+      // ✅ Converte o corpo base64 do Netlify em buffer
       const buf = Buffer.from(event.body, "base64");
       bb.end(buf);
     } catch (err) {

@@ -2,4 +2,18 @@
   publish = "public"
   functions = "netlify/functions"
 
+[build.environment]
+  UMBLER_HOST = "smtp.umbler.com"
+  UMBLER_PORT = "587"
+  UMBLER_SECURE = "false"
+  UMBLER_USER = "contato@thunderglobalcorp.com"
+  ZOHO_HOST = "smtp.zoho.com"
+  ZOHO_PORT = "465"
+  ZOHO_SECURE = "true"
+  ZOHO_USER = "rh@thunderbank.com.br"
+  RH_EMAIL = "rh@thunderbank.com.br"
 
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

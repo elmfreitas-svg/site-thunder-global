@@ -13,10 +13,10 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.10",
+    "nodemailer": "^6.10.1",
     "parse-multipart": "^1.0.4"
   },
   "devDependencies": {
-    "netlify-cli": "^23.10.0"
+    "netlify-cli": "^12.0.0"
   }
 }
