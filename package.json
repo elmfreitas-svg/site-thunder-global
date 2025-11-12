@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "netlify dev",
-    "server": "node server/server.js"
+    "server": "node server/server.js",
+    "build": "echo '✅ Build completo: site estático pronto para Netlify'"
   },
   "dependencies": {
     "busboy": "^1.6.0",
