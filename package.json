@@ -1,25 +1,12 @@
 {
-  "name": "thunderglobal-site",
+  "name": "site-thunder-global",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "start": "netlify dev",
-    "server": "node server/server.js",
-    "build": "echo '✅ Build completo: site estático pronto para Netlify'"
+    "build": "echo 'Static site, no build needed'"
   },
   "dependencies": {
     "busboy": "^1.6.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "multer": "^2.0.2",
-    "nodemailer": "^6.10.1",
-    "parse-multipart": "^1.0.4"
-  },
-  "devDependencies": {
-    "netlify-cli": "^12.0.0"
+    "nodemailer": "^7.0.10"
   }
 }
-
-

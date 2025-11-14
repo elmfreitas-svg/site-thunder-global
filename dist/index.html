@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Thunder Global Corporation — Grupo empresarial global com operações em tecnologia, finanças, energia e inovação." />
+  <meta name="author" content="Thunder Global Corporation" />
+
+  <!-- Política de Privacidade e LGPD -->
+  <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="canonical" href="https://thunderglobalcorp.com" />
+  <link rel="privacy-policy" href="/assets/politica-privacidade-BdYl_-ml.html" />
+
+  <!-- Título -->
+  <title>Thunder Global Corporation</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/logotgc_transparente.png" type="image/png">
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Frameworks e bibliotecas externas seguras -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/4b1234abcd.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <!-- Configuração para garantir execução segura -->
+  <script>
+    // Proteção básica contra clickjacking
+    if (window.top !== window.self) {
+      window.top.location = window.self.location;
+    }
+  </script>
+
+  <!-- Script principal -->
+    <script src="script.js" defer></script>
+
+</head>
+<body class="bg-black text-white"><!-- Header -->
+<!-- Header Responsivo Thunder Global -->
+<header class="bg-black/90 backdrop-blur-lg border-b border-yellow-500/20 fixed w-full z-50 top-0 left-0 m-0">
+    <nav class="container mx-auto px-6 py-0">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <img src="assets/images/logotgc_transparente.png" alt="Thunder Global Logo" class="w-20 h-20 object-contain"/>
+                <div>
+                    <h1 class="text-xl font-bold text-yellow-400">Thunder Global</h1>
+                    <p class="text-yellow-300 text-xs">Corporation</p>
+                </div>
+            </div>
+
+            <!-- Botão menu mobile -->
+            <button id="menu-toggle" class="md:hidden text-yellow-400 text-3xl focus:outline-none">
+                &#9776;
+            </button>
+
+            <!-- Menu principal -->
+            <div id="menu" class="hidden md:flex md:space-x-8 md:items-center">
+                <a href="#home" class="block py-2 md:py-0 hover:text-yellow-400 transition-colors">Início</a>
+                <a href="#companies" class="block py-2 md:py-0 hover:text-yellow-400 transition-colors">Empresas</a>
+                <a href="#about" class="block py-2 md:py-0 hover:text-yellow-400 transition-colors">Sobre</a>
+                <a href="#contact" class="block py-2 md:py-0 hover:text-yellow-400 transition-colors">Contato</a>
+               <!-- Trabalhe Conosco (modal interno) -->
+                <button id="openTrabalheHeader" class="hover:text-yellow-400 transition-colors">
+                   Trabalhe Conosco
+                </button>
+
+            </div>
+        </div>
+    </nav>
+</header>
+ <!-- Hero Section -->
+    <section id="home" class="min-h-screen bg-black flex justify-center items-center relative overflow-hidden text-center">
+    <!-- Fundo preto puro -->
+    <div class="absolute inset-0 bg-black"></div>
+
+    <!-- Bloco central: Logo + Texto -->
+    <div class="relative z-9 flex flex-col items-center -mt-8">
+        <!-- Logo -->
+        <img src="assets/images/logotgc_transparente.png"
+             alt="Thunder Global Logo"
+             class="w-[420px] md:w-[525px] lg:w-[730px] object-contain mx-auto select-none ml-4"
+             style="background: transparent;"
+             onerror="this.style.display='none'; console.log('Logo failed to load');" />
+
+        <!-- Texto abaixo -->
+    <div class="relative z-10 fade-in-up mt-1">
+        <h2 class="mt-6 text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+            <span class="thunder-text">THUNDER</span><br>
+            <span class="text-white">GLOBAL</span><br>
+            <span class="text-yellow-400">CORPORATION</span>
+        </h2>
+    </div>
+</section>
+            
+            <p class="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto fade-in-up text-center">
+                Liderando o mercado financeiro global através de inovação, excelência e soluções estratégicas
+            </p>
+
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center fade-in-up">
+                <button onclick="document.getElementById('companies').scrollIntoView({behavior: 'smooth'})" 
+                        class="gradient-gold hover:from-yellow-300 hover:to-yellow-500 text-black font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105 glow-effect">
+                    Explore Nosso Portifólio
+                </button>
+                <button onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" 
+                        class="border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-4 px-8 rounded-lg transition-all">
+                    Conheça Nossa História
+                </button>
+            </div>
+        </div>
+    </section>
+  <!-- Companies Section -->
+    <section id="companies" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h3 class="text-5xl font-bold text-white mb-6">
+                    <span class="thunder-text">Nosso Portifólio</span>
+                </h3>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Empresas líderes em serviços financeiros e setores estratégicos, 
+                    construindo o futuro dos investimentos e negócios globais
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Thunder Bank -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thunderbank.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_thunderbank.png"
+                             alt="Thunder Bank" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn4+mPC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Bank</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Banco digital de investimentos com soluções financeiras inovadoras e gestão de patrimônio</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Acessar Plataforma</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Thunder Models -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thundermodels.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_models.png"
+                             alt="Thunder Models" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5KOPC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Models</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Agência premium de talentos e modelos para campanhas de luxo e eventos corporativos</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Ver Portfólio</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Dubai Vale -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://abudhabiconstrucao.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logodubai.png"
+                             alt="Dubai Vale" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn4+XPC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Dubai Vale</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Desenvolvimento imobiliário de alto padrão e investimentos em propriedades de luxo</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Explorar Projetos</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Thunder Tour -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thundertour.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_thunder_tour.png"
+                             alt="Thunder Tour" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7inIjvuI88L3RleHQ+Cjwvc3ZnPgo=';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Tour</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Turismo executivo e experiências exclusivas para clientes premium e investidores</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Descobrir Destinos</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Thunder Fantasy Park -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thunderfantasypark.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/thunder_fantasy_park.png"
+                             alt="Thunder Park" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5K7PC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Fantasy Park</h4>
+                    <p class="text-gray-300 mb-6 text-lg">O Segundo maior parque temático de diversões do planeta, unindo o passado com a tecnologia atual</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Ver Soluções</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Thunder Imports -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thunderimports.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_thunder_imports.png"
+                             alt="Thunder Imports" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5K7PC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Imports</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Importação e Exportação , logística, acessoria aduaneira, licenças, tributos ,registros oficiais e etc...</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Ver Soluções</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Health Pay -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://healthpaybank.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_healthpay.png"
+                             alt="Health Pay" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5K7PC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Health Pay</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Antecipe seus recebiveis com plano de saúde com a gente, serviço exclusivo para Mèdicos, Clinicas, Hospitais e empresas relacionadas a saúde</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Ver Soluções</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+                <!-- Thunder Safe -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thundersafe.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-20 h-20 mb-6 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logo_thunder_safe.png"
+                             alt="Thunder Safe" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5K7PC90ZXh0Pgo8L3N2Zz4K';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Safe</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Transporte, processamento e custódia de valores, segurança patrimonial e pessoal, logistica completa incluindo transporte aéreo.</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Ver Soluções</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+
+
+                <!-- Thunder Pay -->
+                <div class="company-card financial-gradient rounded-2xl p-8 text-white cursor-pointer group"
+                     onclick="window.open('https://thunderpay.com.br', '_blank', 'noopener,noreferrer')">
+                    <div class="w-30 h-30 mb-2 mx-auto rounded-xl overflow-hidden group-hover:scale-110 transition-transform">
+                        <img src="assets/images/logothunderpay.fw.png" 
+                             alt="Thunder Pay" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZmJiZjI0Ii8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imKE8L3RleHQ+Cjwvc3ZnPgo=';"
+                        />
+                    </div>
+                    <h4 class="text-3xl font-bold mb-4 text-yellow-400">Thunder Pay</h4>
+                    <p class="text-gray-300 mb-6 text-lg">Pagamentos inteligentes e seguros.
+                     A Thunder Pay conecta o mundo físico ao digital com máquinas de cartão e terminais de criptomoedas, garantindo agilidade, inovação e total segurança em cada transação.</p>
+                    <div class="flex items-center text-yellow-400 font-semibold">
+                        <span>Investir Agora</span>
+                        <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                <div>
+                    <h3 class="text-5xl font-bold text-white mb-8">
+                        <span class="thunder-text">Sobre a Thunder Global</span>
+                    </h3>
+                    <p class="text-xl text-gray-300 mb-8">
+                        Somos um conglomerado financeiro global que revoluciona mercados através de estratégias 
+                        inovadoras, tecnologia de ponta e visão empresarial excepcional.
+                    </p>
+                    <p class="text-xl text-gray-300 mb-12">
+                        Nossa expertise em finanças, combinada com um portfólio diversificado, 
+                        nos posiciona como líderes em criação de valor e oportunidades de investimento.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="text-center p-6 financial-gradient rounded-xl">
+                            <div class="text-4xl font-bold text-yellow-400 mb-2">$2.5B+</div>
+                            <div class="text-gray-300">Ativos Sob Gestão</div>
+                        </div>
+                        <div class="text-center p-6 financial-gradient rounded-xl">
+                            <div class="text-4xl font-bold text-yellow-400 mb-2">9</div>
+                            <div class="text-gray-300">Empresas do Grupo</div>
+                        </div>
+                        <div class="text-center p-6 financial-gradient rounded-xl">
+                            <div class="text-4xl font-bold text-yellow-400 mb-2">50+</div>
+                            <div class="text-gray-300">Países de Atuação</div>
+                        </div>
+                        <div class="text-center p-6 financial-gradient rounded-xl">
+                            <div class="text-4xl font-bold text-yellow-400 mb-2">10K+</div>
+                            <div class="text-gray-300">Investidores Ativos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <img src="assets/images/logotgc_transparente.png" 
+                         alt="Thunder Global Corporation Logo" 
+                         class="w-96 md:w-[125%] lg:w-[130%] mx-auto object-contain"
+                         onerror="this.style.display='none'; console.log('Logo failed to load');"
+                    />
+                </div>
+                </div>
+            </div>
+
+            <!-- Nossa Missão -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                <div class="order-2 lg:order-1">
+                    <div class="w-full h-80 rounded-2xl overflow-hidden glow-effect relative">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&crop=center" 
+                             alt="Equipe executiva em reunião estratégica" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&crop=center';"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-700/30"></div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h4 class="text-4xl font-bold text-white mb-6">
+                        <span class="thunder-text">Nossa Missão</span>
+                    </h4>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Na Thunder Global Corporation, nossa missão é fornecer soluções inovadoras em finanças, 
+                        entretenimento e construção civil. Estamos comprometidos em criar valor sustentável para 
+                        nossos clientes e parceiros.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nossos Valores -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                <div>
+                    <h4 class="text-4xl font-bold text-white mb-6">
+                        <span class="thunder-text">Nossos Valores</span>
+                    </h4>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Valorizamos a integridade, a inovação e a excelência em tudo que fazemos. 
+                        Nossa equipe é dedicada a construir relacionamentos de longo prazo com nossos clientes, 
+                        baseados na confiança e no respeito.
+                    </p>
+                </div>
+                <div>
+                    <div class="w-full h-80 rounded-2xl overflow-hidden glow-effect relative">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=400&fit=crop&crop=center" 
+                             alt="Equipe diversa trabalhando em colaboração" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&crop=center';"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-emerald-700/30"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nossos Serviços -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="w-full h-80 rounded-2xl overflow-hidden glow-effect relative">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop&crop=center" 
+                             alt="Consultoria e serviços profissionais" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop&crop=center';"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-600/30 to-red-700/30"></div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h4 class="text-4xl font-bold text-white mb-6">
+                        <span class="thunder-text">Nossos Serviços</span>
+                    </h4>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Oferecemos uma ampla gama de serviços, incluindo consultoria financeira, 
+                        desenvolvimento de projetos de entretenimento e construção civil. 
+                        Nossa expertise nos permite atender às necessidades específicas de cada cliente.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Projeto Fênix -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-3">
+                        <span class="thunder-text">Projeto Fênix</span>
+                    </h4>
+                    <p class="text-base text-gray-300 leading-relaxed">
+                        O <strong>Projeto Fênix</strong> é uma ação <strong>privada/filantrópica itinerante</strong> voltada à 
+                        <strong>alimentação, saúde e reintegração social</strong> de pessoas em situação de rua. 
+                        São <strong>quatro ônibus adaptados</strong> que permanecem <strong>30 dias</strong> em cada local, oferecendo:
+                    </p>
+                    <ul class="text-sm text-gray-300 leading-relaxed list-disc list-inside mt-2 space-y-1">
+                        <li><strong>Restaurante:</strong> refeições gratuitas.</li>
+                        <li><strong>Saúde:</strong> atendimentos médicos básicos.</li>
+                        <li><strong>Assistência Social:</strong> banho, roupas e apoio profissional.</li>
+                        <li><strong>Biblioteca e Brinquedoteca:</strong> leitura e lazer.</li>
+                    </ul>
+                    <a href="https://fenixprojetosocial.com.br" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="inline-block mt-4 px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-full transition">
+            Saiba mais
+                    </a>
+                </div>
+                <div>
+                    <div class="w-full h-64 rounded-2xl overflow-hidden glow-effect relative">
+                        <img src="assets/images/onibus_fenix.png"
+                             alt="Ônibus do Projeto Fênix"
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&crop=center';"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-emerald-700/30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-5xl font-bold mb-8">
+                <span class="thunder-text">Entre em Contato</span>
+            </h3>
+            <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                Pronto para fazer parte do futuro dos investimentos? 
+                Conecte-se conosco e descubra oportunidades exclusivas.
+            </p>
+            <!-- Seção Venha nos Visitar -->
+            <div class="bg-gradient-to-br from-yellow-600/10 to-yellow-400/5 rounded-3xl p-12 mb-16 border border-yellow-500/20">
+                <div class="text-center mb-12">
+                    <h4 class="text-4xl font-bold mb-6">
+                        <span class="thunder-text">Ou melhor, venha nos visitar!</span>
+                    </h4>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        Nossos clientes são importantes para nós. Ficaríamos contentes em receber a sua visita durante nosso horário comercial.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-4xl">📍</div>
+                            <div>
+                                <h5 class="text-2xl font-bold text-yellow-400 mb-2">Endereço</h5>
+                                <p class="text-gray-300 text-lg leading-relaxed">
+                                    Thunder Global Corporation<br>
+                                    Av. Ipiranga, 337 - República<br>
+                                    São Paulo - SP, Brasil
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-4xl">📞</div>
+                            <div>
+                                <h5 class="text-2xl font-bold text-yellow-400 mb-2">Telefone</h5>
+                                <p class="text-gray-300 text-lg">+55 (11) 3159-2222</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="text-4xl">🕒</div>
+                            <div>
+                                <h5 class="text-2xl font-bold text-yellow-400 mb-2">Horário de Funcionamento</h5>
+                                <div class="text-gray-300 text-lg">
+                                    <p class="mb-2"><span class="text-green-400 font-semibold">● Aberto hoje</span></p>
+                                    <p>Segunda a Sexta: 09:00 – 17:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-80 h-80 mx-auto rounded-2xl overflow-hidden glow-effect relative">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=600&fit=crop&crop=center" 
+                                 alt="Prédio corporativo moderno" 
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=600&fit=crop&crop=center';"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/30 to-yellow-600/30"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="financial-gradient rounded-2xl p-8 glow-effect">
+                    <div class="text-5xl mb-6">📧</div>
+                    <h4 class="text-2xl font-bold mb-4 text-yellow-400">Email Corporativo</h4>
+                    <p class="text-gray-300 text-lg">contato@thunderglobalcorp.com</p>
+                </div>
+                <div class="financial-gradient rounded-2xl p-8 glow-effect">
+                    <div class="text-5xl mb-6">💼</div>
+                    <h4 class="text-2xl font-bold mb-4 text-yellow-400">Atendimento Executivo</h4>
+                    <p class="text-gray-300 text-lg">Reuniões por agendamento</p>
+                </div>
+            </div>
+<!-- BOTÃO AGENDAR REUNIÃO ABRIR MODAL -->
+<button id="openModal" 
+  class="gradient-gold hover:from-yellow-300 hover:to-yellow-500 text-black font-bold py-6 px-12 rounded-lg transition-all transform hover:scale-105 glow-effect text-xl">
+  Agendar Reunião Executiva
+</button>
+
+<!-- MODAL AGENDAR REUNIÃO -->
+<div id="modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+  <!-- Fundo escuro -->
+  <div class="absolute inset-0 bg-black bg-opacity-80"></div>
+
+  <!-- Conteúdo -->
+  <div class="relative z-10 max-w-lg w-full bg-gray-900 rounded-xl p-8 shadow-lg border border-yellow-500/40">
+    <button id="closeModal" class="absolute top-4 right-4 text-yellow-400 text-2xl font-bold">&times;</button>
+    <h4 class="text-3xl font-bold text-yellow-400 mb-6 text-center">Formulário de Agendamento</h4>
+
+    <!-- Inputs -->
+    <div class="space-y-4 text-left">
+      <input type="text" id="nome" placeholder="Nome" 
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="email" id="email" placeholder="E-mail" 
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="text" id="telefone" placeholder="Telefone" 
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="text" id="empresa" placeholder="Empresa" 
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <textarea id="observacoes" placeholder="Observações" rows="4"
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400"></textarea>
+    </div>
+
+    <!-- Botões -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+      <button id="btnEmail" 
+        class="gradient-gold text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all">
+        ✉️ Enviar por E-mail
+      </button>
+      <button id="btnWhatsApp" 
+        class="gradient-gold text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all">
+        💬 Enviar por WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL TRABALHE CONOSCO -->
+<div id="trabalheModal" class="fixed inset-0 flex items-center justify-center hidden z-[9999]">
+  <div class="absolute inset-0 bg-black bg-opacity-80"></div>
+
+  <div class="relative z-[10000] max-w-lg w-full bg-gray-900 rounded-xl p-8 shadow-lg">
+    <!-- Fechar -->
+    <button id="tcFecharTop" class="absolute top-4 right-4 text-yellow-400 text-2xl font-bold">&times;</button>
+
+    <h4 class="text-3xl font-bold text-yellow-400 mb-4">Trabalhe Conosco</h4>
+    <p class="text-gray-300 mb-4">
+      Envie seu interesse e currículo para <strong>rh@thunderbank.com.br</strong>.
+    </p>
+
+    <!-- Formulário -->
+    <form id="trabalheForm" class="space-y-4 text-left">
+      <input type="text" name="nome" id="tc_nome" placeholder="Nome completo" required
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="email" name="email" id="tc_email" placeholder="E-mail" required
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="text" name="empresa" id="tc_empresa" placeholder="Empresa (ex: Thunder Bank)"
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+      <input type="text" name="cargo" id="tc_cargo" placeholder="Cargo / Área pretendida"
+        class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400" />
+
+      <textarea name="mensagem" id="tc_mensagem" placeholder="Breve apresentação / experiência"
+        rows="2" class="w-full p-3 rounded-lg bg-black border border-yellow-500/40 text-white placeholder-gray-400"></textarea>
+
+      <label class="block text-gray-300">
+        Anexar Currículo (PDF):
+        <input type="file" id="tc_curriculo" accept=".pdf"
+          class="mt-2 block w-full text-gray-900" />
+      </label>
+
+      <p id="tcCurriculoNome" class="text-gray-400 text-sm mt-2"></p>
+
+      <!-- Botões -->
+      <div class="flex gap-3 justify-end">
+        <button type="submit" id="tcEnviarEmail"
+          class="gradient-gold text-black font-bold py-3 px-6 rounded-lg hover:from-yellow-300 hover:to-yellow-500 transition-all">
+          Enviar
+        </button>
+        <button type="button" id="tcFecharBottom"
+          class="bg-gray-800 text-yellow-400 px-4 py-3 rounded-md border border-yellow-600/20">
+          Fechar
+        </button>
+      </div>
+    </form>
+
+    <p id="tcStatus" class="text-green-400 mt-4 hidden"></p>
+  </div>
+</div>
+ <!-- Footer -->
+<footer class="bg-gray-900 text-white py-16 border-t border-yellow-500/20">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            
+            <!-- Coluna 1: Logo + Slogan -->
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="https://drive.google.com/uc?id=1OncfFRDSovXNgB41BLO2JOt-ekyYQ1Xr" 
+                         alt="Thunder Global Corporation Logo" 
+                         class="w-12 h-12 object-contain"
+                         onerror="this.style.display='none'; console.log('Logo failed to load');"
+                    />
+                    <div>
+                        <h5 class="font-bold text-xl text-yellow-400">Thunder Global</h5>
+                        <p class="font-bold text-xl text-yellow-400">Corporation</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-lg">Liderando o futuro através da inovação financeira e excelência empresarial.</p>
+            </div>
+
+            <!-- Coluna 2: Empresas -->
+            <div>
+               <h5 class="font-bold mb-6 text-xl text-yellow-400">Empresas</h5>
+               <ul class="grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-6 gap-y-3 text-gray-400 justify-items-center">
+                   <li><a href="https://www.thunderbank.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Bank</a></li>
+                   <li><a href="https://www.thundermodels.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Models</a></li>
+                   <li><a href="https://www.dubaivale.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Dubai Vale</a></li>
+                   <li><a href="https://www.thundertour.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Tour</a></li>
+                   <li><a href="https://www.thunderfantasypark.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Fantasy Park</a></li>
+                   <li><a href="https://www.thunderimports.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Imports</a></li>
+                   <li><a href="https://www.healthpay.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Health Pay</a></li>
+                   <li><a href="https://www.thundersafe.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Safe</a></li>
+                   <li><a href="https://www.thunderpay.com.br" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 transition-colors text-lg">Thunder Pay</a></li>
+               </ul>
+            </div>
+            <!-- Coluna 3: Navegação -->
+            <div>
+                <h5 class="font-bold mb-6 text-xl text-yellow-400">Navegação</h5>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="#home" class="hover:text-yellow-400 transition-colors text-lg">Início</a></li>
+                    <li><a href="#companies" class="hover:text-yellow-400 transition-colors text-lg">Portfólio</a></li>
+                    <li><a href="#about" class="hover:text-yellow-400 transition-colors text-lg">Sobre Nós</a></li>
+                    <li><a href="#contact" class="hover:text-yellow-400 transition-colors text-lg">Contato</a></li>
+                    <li><a href="pages/politica-privacidade.html" class="hover:text-yellow-400 transition-colors text-lg">Política de Privacidade</a><li>
+                </ul>
+            </div>
+             <!-- Coluna 4: Conecte-se (Topo à direita) -->
+            <div class="flex flex-col justify-start items-start md:items-end">
+                <h5 class="font-bold mb-6 text-xl text-yellow-400">Conecte-se</h5>
+                <div class="flex space-x-4">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/thunderglobalcorporation" target="_blank" rel="noopener noreferrer"
+                                   class="w-12 h-12 financial-gradient rounded-lg flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all glow-effect"
+                                   aria-label="Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                                        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 
+                                        24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.894-4.788 
+                                        4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.504 
+                                        0-1.795.715-1.795 1.763v2.313h3.587l-.467 
+                                        3.622h-3.12V24h6.116C23.403 24 24 23.403 24 
+                                        22.676V1.325C24 .597 23.403 0 22.675 0z"/>
+                                    </svg>
+                                </a>
+
+                               <!-- Instagram -->
+                               <a href="https://www.instagram.com/thunderglobalcorporation" target="_blank" rel="noopener noreferrer"
+                                  class="w-12 h-12 financial-gradient rounded-lg flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all glow-effect"
+                                  aria-label="Instagram">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 
+                                       1.366.062 2.633.332 3.608 1.308.975.975 
+                                       1.246 2.242 1.308 3.608.058 1.266.70 
+                                       1.646.07 4.85s-.012 3.584-.07 4.85c-.062 
+                                       1.366-.332 2.633-1.308 3.608-.975.975-2.242 
+                                       1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 
+                                       15.747 2.163 15.367 2.163 
+                                       12s.012-3.584.07-4.85c.062-1.366.332-2.633 
+                                       1.308-3.608.975-.975 2.242-1.246 
+                                       3.608-1.308C8.416 2.175 8.796 2.163 12 
+                                       2.163M12 0C8.741 0 8.332.014 7.052.072 
+                                       5.775.13 4.602.443 3.635 1.41 2.668 
+                                       2.377 2.355 3.55 2.297 4.828.014 
+                                       8.332 0 8.741 0 12c0 3.259.014 3.668.072 
+                                       4.948.058 1.277.371 2.45 1.338 
+                                       3.417.967.967 2.14 1.28 3.417 
+                                       1.338C8.332 23.986 8.741 24 12 
+                                       24s3.668-.014 4.948-.072c1.277-.058 
+                                       2.45-.371 3.417-1.338.967-.967 1.28-2.14 
+                                       1.338-3.417.058-1.28.072-1.689.072-4.948 
+                                       0-3.259-.014-3.668-.072-4.948-.058-1.277-.371-2.45-1.338-3.417C19.398.443 
+                                       18.225.13 16.948.072 15.668.014 15.259 
+                                       0 12 0z"/>
+                                       <circle cx="12" cy="12" r="3.5"/>
+                                   </svg>
+                                </a>
+
+                                <!-- LinkedIn -->
+                                <a href="https://www.linkedin.com/company/thunderglobalcorporation" target="_blank" rel="noopener noreferrer"
+                                   class="w-12 h-12 financial-gradient rounded-lg flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all glow-effect"
+                                   aria-label="LinkedIn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                                        <path d="M20.447 20.452H17.2v-5.569c0-1.328-.025-3.037-1.852-3.037-1.853 
+                                        0-2.136 1.446-2.136 2.94v5.666h-3.248V9h3.122v1.561h.045c.435-.823 
+                                        1.5-1.69 3.088-1.69 3.3 0 3.907 2.174 
+                                        3.907 5.004v6.577zM5.337 7.433c-1.046 
+                                        0-1.893-.848-1.893-1.893S4.291 3.647 
+                                        5.337 3.647c1.046 0 1.893.848 
+                                        1.893 1.893s-.847 1.893-1.893 1.893zM6.814 
+                                        20.452H3.861V9h2.953v11.452zM22.225 
+                                        0H1.771C.792 0 0 .774 0 1.729v20.542C0 
+                                        23.226.792 24 1.771 24h20.451C23.2 
+                                        24 24 23.226 24 22.271V1.729C24 
+                                        .774 23.2 0 22.225 0z"/>
+                                    </svg>
+                                </a>
+
+                                <!-- YouTube -->
+                                <a href="https://www.youtube.com/@thunderglobalcorporation" target="_blank" rel="noopener noreferrer"
+                                   class="w-12 h-12 financial-gradient rounded-lg flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all glow-effect"
+                                   aria-label="YouTube">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                                        <path d="M19.615 3.184C21.403 3.64 22.75 
+                                        5.06 23.21 6.897c.6 2.327.6 7.17.6 
+                                        7.17s0 4.843-.6 7.17c-.46 1.837-1.807 
+                                        3.257-3.595 3.713-3.176.6-9.615.6-9.615.6s-6.439 
+                                        0-9.615-.6C1.808 24.494.46 23.074 0 
+                                        21.237-.6 18.91-.6 14.067-.6 
+                                        14.067s0-4.843.6-7.17C.46 5.06 1.808 
+                                        3.64 3.595 3.184 6.771 2.584 13.21 
+                                        2.584 13.21 2.584s6.439 0 9.615.6zM9.546 
+                                        15.568v-6.27l6.545 3.135-6.545 3.135z"/>
+                                    </svg>
+                                </a>
+
+                                <!-- WhatsApp -->
+                                <a href="https://wa.me/5511951138478" target="_blank" rel="noopener noreferrer"
+                                   class="w-12 h-12 financial-gradient rounded-lg flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all glow-effect pulse-gold"
+                                   aria-label="WhatsApp">
+                                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+                                        <path d="M20.52 3.48A11.76 11.76 0 0012 0C5.37 
+                                        0 0 5.37 0 12c0 2.1.55 4.14 1.6 5.93L0 
+                                        24l6.22-1.62A11.94 11.94 0 0012 24c6.63 
+                                        0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 
+                                        22c-1.86 0-3.67-.5-5.25-1.46l-.38-.23-3.69.96.98-3.59-.25-.37A9.9 
+                                        9.9 0 012 12c0-5.52 4.48-10 10-10s10 
+                                        4.48 10 10-4.48 10-10 10zm5.33-7.17c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48.15-.68.15-.2.3-.78.97-.95 
+                                        1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.49-1.78-1.67-2.08-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.65-.93-2.27-.25-.6-.5-.52-.68-.53h-.58c-.2 
+                                        0-.52.07-.8.37-.28.3-1.05 1.02-1.05 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 
+                                        4.48.71.31 1.26.5 1.7.64.72.23 1.37.2 1.88.12.57-.09 1.77-.72 
+                                        2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35z"/>
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                </div>
+            </div>
+            <div class="border-t border-yellow-500/20 mt-12 pt-8 text-center text-gray-400">
+                <p class="text-lg">&copy; 2024 Thunder Global Corporation. Todos os direitos reservados. | Investimentos envolvem riscos.</p>
+            </div>
+        </div>
+    </footer>
+    </html>
