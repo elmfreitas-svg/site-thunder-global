@@ -9,8 +9,8 @@
   UMBLER_USER = "contato@thunderglobalcorp.com"
 
   ZOHO_HOST = "smtp.zoho.com"
-  ZOHO_PORT = "465"
-  ZOHO_SECURE = "true"
+  ZOHO_PORT = "587"
+  ZOHO_SECURE = "false"
   ZOHO_USER = "rh@thunderbank.com.br"
   RH_EMAIL = "rh@thunderbank.com.br"
 
