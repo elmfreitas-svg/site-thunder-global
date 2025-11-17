@@ -4,10 +4,8 @@
 
 import busboy from "busboy";
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-
-// Carrega variáveis locais apenas fora do ambiente Netlify
-dotenv.config();
+// ❌ REMOVIDO: import dotenv from "dotenv";
+// ❌ REMOVIDO: dotenv.config();
 
 export const handler = async (event) => {
   console.log("📥 Iniciando processamento do formulário Trabalhe Conosco...");
