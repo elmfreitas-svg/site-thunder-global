@@ -1,5 +1,12 @@
 [build]
   publish = "public"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/sendToRH"
+  to = "/.netlify/functions/sendToRH"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
