@@ -1,14 +1,12 @@
-// netlify/functions/sendEmail.js
+// ================================
+// ⚡ THUNDER GLOBAL — SendEmail (Netlify Function)
+// ================================
 
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-
-// Carrega variáveis locais apenas fora do ambiente Netlify
-dotenv.config();
 
 export const handler = async (event) => {
   try {
-    // 1. Permite apenas POST
+    // 1. Apenas POST é permitido
     if (event.httpMethod !== "POST") {
       return { statusCode: 405, body: "Method Not Allowed" };
     }
@@ -31,7 +29,7 @@ export const handler = async (event) => {
     const transporter = nodemailer.createTransport({
       host: process.env.UMBLER_HOST,
       port: Number(process.env.UMBLER_PORT),
-      secure: process.env.UMBLER_SECURE === "false", // false para porta 587/588/583
+      secure: false, // obrigatório para Umbler no Netlify
       auth: {
         user: process.env.UMBLER_USER,
         pass: process.env.UMBLER_PASS,
